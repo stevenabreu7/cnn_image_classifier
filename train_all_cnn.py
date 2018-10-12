@@ -79,7 +79,7 @@ class Trainer:
                 self.optimizer.zero_grad()
 
                 # initialize the data as variables
-                batch_data = Variable(batch_data.view(-1, self.train_loader.dataset.el_length))
+                batch_data = Variable(batch_data.view(-1, len(self.train_loader.dataset)))
                 batch_labels = Variable(batch_labels)
 
                 # move data to GPU if possible
