@@ -13,8 +13,8 @@ class CustomDataset(Dataset):
         self.data = data
         self.labels = labels 
         # convert to tensors
-        self.data = torch.tensor(self.data).float()
-        self.labels = torch.tensor(self.labels)
+        self.data = torch.Tensor(self.data).float()
+        self.labels = torch.Tensor(self.labels)
     
     def __len__(self):
         return self.labels.shape[0]
@@ -79,8 +79,8 @@ class Trainer:
                 self.optimizer.zero_grad()
 
                 # initialize the data as variables
-                batch_data = Variable(batch_data.view(-1, len(self.train_loader.dataset)))
-                batch_labels = Variable(batch_labels)
+                batch_data = Variable(batch_data)
+                batch_labels = Variable(batch_labels.type(torch.LongTensor))
 
                 # move data to GPU if possible
                 batch_data = batch_data.cuda() if self.gpu else batch_data
@@ -107,7 +107,7 @@ class Trainer:
 
                 # print training progress
                 if batch_i % 10 == 0:
-                    print('\rEpoch {:3} Progress {:5.2%} Accuracy {:5.2%}'.format(
+                    print('\rEpoch {:3} Progress {:7.2%} Accuracy {:7.2%}'.format(
                         epoch + 1, 
                         batch_i * self.train_loader.batch_size / len(self.train_loader.dataset),
                         train_correct.cpu().item() / ((batch_i + 1) * self.train_loader.batch_size)
