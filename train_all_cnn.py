@@ -66,8 +66,8 @@ class Trainer:
 
         for epoch in range(epochs):
 
-            if scheduler:
-                scheduler.step()
+            if self.scheduler:
+                self.scheduler.step()
 
             train_num = 0
             train_loss = 0
