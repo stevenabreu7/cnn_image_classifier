@@ -58,9 +58,9 @@ def cifar_10_preprocess(x, xtest, image_size=32):
     :return: tuple (new x, new xtest), each shaped (n, 3, image_size, image_size)
     """
     new_shape = (-1, 3, image_size, image_size)
-    x, xtest = sample_zero_mean(x), sample_zero_mean(xtest)
-    x, xtest = gcn(x), gcn(xtest)
-    x, xtest = feature_zero_mean(x, xtest)
+    # x, xtest = sample_zero_mean(x), sample_zero_mean(xtest)
+    # x, xtest = gcn(x), gcn(xtest)
+    # x, xtest = feature_zero_mean(x, xtest)
     # x, xtest = zca(x, xtest)
     x, xtest = x.reshape(new_shape), xtest.reshape(new_shape)
     return x, xtest
