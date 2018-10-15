@@ -167,7 +167,7 @@ def main():
     net = all_cnn.all_cnn_module()
 
     # apply initialization
-    # net.apply(init_xavier)
+    net.apply(init_xavier)
 
     # training parameters
     optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=0.001)
