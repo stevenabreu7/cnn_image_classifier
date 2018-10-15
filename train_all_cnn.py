@@ -134,7 +134,7 @@ def init_randn(m):
         m.weight.data.normal_(0,1)
 
 def init_xavier(m):
-    if type(m) == nn.Linear:
+    if type(m) == nn.Conv2d:
         fan_in = m.weight.size()[1]
         fan_out = m.weight.size()[0]
         std = np.sqrt(2.0 / (fan_in + fan_out))
