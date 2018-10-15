@@ -31,6 +31,9 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument(
+    'name',
+    help='Name of the model.')
+parser.add_argument(
     '--preprocessing', 
     '-p',
     default=False, 
@@ -169,7 +172,7 @@ for epoch in range(args.epochs):
         train_correct += count
         train_n += batch_data.data.shape[0]
 
-        train_loss += batch_loss.data[0]
+        train_loss += batch_loss.data.item()
 
         if args.verbose:
             print('Batch:             {:04}/{:04}'.format(
@@ -207,3 +210,8 @@ for epoch in range(args.epochs):
     print('\rBatch:            {:2}'.format(epoch + 1))
     print('Accuracy:         {:6.3f}'.format(train_acc))
     print('Loss:             {:6.3f}'.format(train_loss))
+
+    torch.save(net, 'models/{}_{}'.format(
+        args.name, 
+        epoch+1
+    ))
