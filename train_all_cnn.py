@@ -161,7 +161,8 @@ def main():
     # datasets and loaders
     print('Loading datasets')
     train_dataset, test_data = load_data()
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=RandomSampler(train_dataset), shuffle=True)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    # sampler=RandomSampler(train_dataset), 
 
     # model
     net = all_cnn.all_cnn_module()
