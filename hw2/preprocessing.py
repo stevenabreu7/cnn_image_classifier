@@ -61,6 +61,6 @@ def cifar_10_preprocess(x, xtest, image_size=32):
     x, xtest = sample_zero_mean(x), sample_zero_mean(xtest)
     x, xtest = gcn(x), gcn(xtest)
     x, xtest = feature_zero_mean(x, xtest)
-    x, xtest = zca(x, xtest)
+    # x, xtest = zca(x, xtest)
     x, xtest = x.reshape(new_shape), xtest.reshape(new_shape)
     return x, xtest
