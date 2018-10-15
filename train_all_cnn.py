@@ -156,7 +156,7 @@ def write_results(predictions, output_file='predictions.txt'):
 
 def main():
     # data parameters
-    batch_size = 64
+    batch_size = 32
 
     # datasets and loaders
     print('Loading datasets')
