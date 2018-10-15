@@ -57,6 +57,12 @@ parser.add_argument(
     '--lr',
     '-l',
     type=float,
+    default=0.01,
+    help='Learning rate')
+parser.add_argument(
+    '--wdecay',
+    '-w',
+    type=float,
     default=0.001,
     help='Learning rate')
 parser.add_argument(
@@ -100,15 +106,15 @@ net = all_cnn.all_cnn_module()
 # initialization
 for layer in net:
     if isinstance(layer, nn.Conv2d):
+        # nn.init.xavier_normal_(layer.weight)
         nn.init.kaiming_normal_(layer.weight)
         layer.bias.data.fill_(0)
 
 # logging
 print('Using learning rate', args.lr)
-print('Using scheduler' if args.scheduler else 'Not using scheduler')
 
 # optimizer
-optimizer = torch.optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=0.0001)
+optimizer = torch.optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=args.wdecay)
 # scheduler
 scheduler = None 
 # criterion
@@ -123,9 +129,6 @@ gpu = torch.cuda.is_available()
 net = net.cuda() if gpu else net
 
 for epoch in range(args.epochs):
-
-    if scheduler:
-        scheduler.step()
     
     train_n = 0
     train_loss = 0.
@@ -147,19 +150,17 @@ for epoch in range(args.epochs):
             batch_labels = batch_labels.cuda()
         
         batch_output = net(batch_data)
-
-        batch_prediction = batch_output.data.max(1, keepdim=True)[1]
-        batch_prediction = batch_prediction.eq(batch_labels.data.view_as(batch_prediction))
-
-        train_correct += batch_prediction.sum()
-        train_n += batch_data.data.shape[0]
-
         batch_loss = criterion(batch_output, batch_labels)
-
         batch_loss.backward()
         optimizer.step()
 
-        train_loss += batch_loss.data.item()
+        batch_prediction = torch.max(batch_output, 1)[1]
+        count = (batch_prediction == batch_labels).sum()
+
+        train_correct += count
+        train_n += batch_data.data.shape[0]
+
+        train_loss += batch_loss.data[0]
 
         if args.verbose:
             print('Batch:             {:04}/{:04}'.format(
