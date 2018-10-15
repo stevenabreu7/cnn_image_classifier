@@ -174,29 +174,7 @@ for epoch in range(args.epochs):
 
         train_loss += batch_loss.data.item()
 
-        if args.verbose:
-            print('Batch:             {:04}/{:04}'.format(
-                batch_i,
-                len(train_loader)
-            ))
-            print('Got correct:       {:02}/{:02}'.format(
-                batch_prediction.sum().cpu().item(),
-                batch_data.data.shape[0]
-            ))
-            print('Batch accuracy:   {:6.3f}'.format(
-                batch_prediction.sum().cpu().item() / batch_data.data.shape[0]
-            ))
-            print('Overall accuracy: {:6.3f}'.format(
-                train_correct.cpu().item() / train_n
-            ))
-            print('Batch loss:       {:6.3f}'.format(
-                batch_loss.data.item()
-            ))
-            print('Overall loss:     {:6.3f}'.format(
-                train_loss / (batch_i + 1)
-            ))
-            print()
-        elif batch_i % 10 == 9 or batch_i == 0:
+        if batch_i % 10 == 9 or batch_i == 0:
             print('\r{:04}/{:04}\t\t{:6.4f}\t\t{:6.4f}'.format(
                 batch_i+1,
                 len(train_loader),
@@ -207,7 +185,7 @@ for epoch in range(args.epochs):
     train_loss = train_loss / len(train_loader)
     train_acc = train_correct.cpu().item() / train_n
 
-    print('\rBatch:            {:2}'.format(epoch + 1))
+    print('\nBatch:            {:2}'.format(epoch + 1))
     print('Accuracy:         {:6.3f}'.format(train_acc))
     print('Loss:             {:6.3f}'.format(train_loss))
 
