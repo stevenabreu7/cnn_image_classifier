@@ -66,6 +66,12 @@ parser.add_argument(
     default=0.001,
     help='Learning rate')
 parser.add_argument(
+    '--init',
+    '-i',
+    type=int,
+    default=0,
+    help='0: no initialization. 1: xavier. 2: kaimin')
+parser.add_argument(
     '--verbose',
     '-v',
     default=False,
@@ -106,8 +112,10 @@ net = all_cnn.all_cnn_module()
 # initialization
 for layer in net:
     if isinstance(layer, nn.Conv2d):
-        # nn.init.xavier_normal_(layer.weight)
-        nn.init.kaiming_normal_(layer.weight)
+        if args.init == 1:
+            nn.init.xavier_normal_(layer.weight)
+        elif args.init == 2:
+            nn.init.kaiming_normal_(layer.weight)
         layer.bias.data.fill_(0)
 
 # logging
