@@ -161,7 +161,7 @@ def main():
     # datasets and loaders
     print('Loading datasets')
     train_dataset, test_data = load_data()
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=RandomSampler(train_dataset))
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=RandomSampler(train_dataset), shuffle=True)
 
     # model
     net = all_cnn.all_cnn_module()
@@ -170,11 +170,12 @@ def main():
     net.apply(init_xavier)
 
     # training parameters
-    optimizer = torch.optim.Adam(net.parameters(), lr=0.1, weight_decay=1e-3)
+    # optimizer = torch.optim.Adam(net.parameters(), lr=0.1, weight_decay=1e-3)
     optimizer = torch.optim.SGD(net.parameters(), lr=0.001, momentum=0.9, weight_decay=0.001)
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [200, 250, 300], gamma=0.1)
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [50, 100, 150], gamma=0.1)
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [10, 20, 30], gamma=0.1)
+    # scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [200, 250, 300], gamma=0.1)
+    # scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [50, 100, 150], gamma=0.1)
+    # scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [10, 20, 30], gamma=0.1)
+    scheduler = None
     criterion = nn.modules.loss.CrossEntropyLoss()
 
     # initialize the trainer
