@@ -72,6 +72,8 @@ class Trainer:
             train_num = 0
             train_loss = 0
             train_correct = 0
+            
+            self.net.train()
 
             for batch_i, (batch_data, batch_labels) in enumerate(self.train_loader):
                 
@@ -134,11 +136,14 @@ def init_randn(m):
         m.weight.data.normal_(0,1)
 
 def init_xavier(m):
-    if type(m) == nn.Conv2d:
-        fan_in = m.weight.size()[1]
-        fan_out = m.weight.size()[0]
-        std = np.sqrt(2.0 / (fan_in + fan_out))
-        m.weight.data.normal_(0,std)
+    if isinstance(m, nn.Conv2d):
+        nn.init.xavier_normal(m.weight)
+        # m.bias.data.fi
+    # if type(m) == nn.Conv2d:
+    #     fan_in = m.weight.size()[1]
+    #     fan_out = m.weight.size()[0]
+    #     std = np.sqrt(2.0 / (fan_in + fan_out))
+    #     m.weight.data.normal_(0,std)
 
 def write_results(predictions, output_file='predictions.txt'):
     """
