@@ -29,7 +29,7 @@ def load_data():
     test_data = load('dataset/test_feats.npy')    
     # preprocessing
     print('Preprocessing data')
-    train_data, test_data = preprocessing.cifar_10_preprocess(train_data, test_data)
+    # train_data, test_data = preprocessing.cifar_10_preprocess(train_data, test_data)
     # training dataset
     train_dataset = CustomDataset(train_data, train_labels)
     return train_dataset, test_data
