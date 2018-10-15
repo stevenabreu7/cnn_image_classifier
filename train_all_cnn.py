@@ -72,6 +72,7 @@ class Trainer:
             train_num = 0
             train_loss = 0
             train_correct = 0
+            batch_count = 0
             
             self.net.train()
 
@@ -93,7 +94,13 @@ class Trainer:
 
                 # evaluate the prediction and correctness
                 batch_prediction = batch_output.data.max(1, keepdim = True)[1]
+                print(batch_prediction.size())
+                print(batch_prediction)
                 batch_prediction = batch_prediction.eq(batch_labels.data.view_as(batch_prediction))
+                print(batch_prediction.size())
+                print(batch_prediction)
+                print(batch_prediction.size())
+                print(batch_prediction.sum())
                 train_correct += batch_prediction.sum()
                 train_num += batch_data.data.shape[0]
 
@@ -116,7 +123,7 @@ class Trainer:
                     ), end='')
 
             # compute epoch loss and accuracy
-            train_loss = train_loss / train_num
+            train_loss = train_loss / len(self.train_loader)
             train_accuracy = train_correct.cpu().item() / train_num
 
             # print summary for this epoch
