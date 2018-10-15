@@ -44,6 +44,7 @@ parser.add_argument(
     help='Turn on and off scheduler.')
 parser.add_argument(
     '--batchsize', 
+    '-b',
     type=int,
     default=16,
     help='Batch Size.')
@@ -52,7 +53,7 @@ parser.add_argument(
     '-e',
     type=int,
     default=100,
-    help='Epochs.')
+    help='Epochs')
 parser.add_argument(
     '--lr',
     '-l',
@@ -64,7 +65,7 @@ parser.add_argument(
     '-w',
     type=float,
     default=0.001,
-    help='Learning rate')
+    help='Weight decay')
 parser.add_argument(
     '--init',
     '-i',
@@ -203,6 +204,6 @@ for epoch in range(args.epochs):
     train_loss = train_loss / len(train_loader)
     train_acc = train_correct.cpu().item() / train_n
 
-    print('Batch:            {:2}'.format(epoch + 1))
+    print('\rBatch:            {:2}'.format(epoch + 1))
     print('Accuracy:         {:6.3f}'.format(train_acc))
     print('Loss:             {:6.3f}'.format(train_loss))
