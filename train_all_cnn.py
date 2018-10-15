@@ -170,10 +170,11 @@ def main():
     net.apply(init_xavier)
 
     # training parameters
-    optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=0.001)
     optimizer = torch.optim.Adam(net.parameters(), lr=0.1, weight_decay=1e-3)
+    optimizer = torch.optim.SGD(net.parameters(), lr=0.1, momentum=0.9, weight_decay=0.001)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [200, 250, 300], gamma=0.1)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [50, 100, 150], gamma=0.1)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, [10, 20, 30], gamma=0.1)
     criterion = nn.modules.loss.CrossEntropyLoss()
 
     # initialize the trainer
