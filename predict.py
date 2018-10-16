@@ -20,7 +20,7 @@ test_data = load('dataset/test_feats.npy')
 # preprocessing
 train_data, test_data = preprocessing.cifar_10_preprocess(train_data, test_data)
 
-gpu = torch.cuda.is_available()
+gpu = False # torch.cuda.is_available()
 net = net.cuda() if gpu else net
 
 train_data = torch.Tensor(train_data)
