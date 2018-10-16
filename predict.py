@@ -35,7 +35,7 @@ for i in range(len(test_data)):
     if i % 100 == 0:
         print('\r', i, sep='', end='')
     output = net(test_data[i].unsqueeze(0))
-    pred = torch.max(output, 1)[1]
+    pred = torch.max(output, 1)[1].cpu().item()
     predictions.append(pred)
 
 # save predictions
