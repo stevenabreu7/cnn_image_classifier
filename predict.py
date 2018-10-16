@@ -23,7 +23,7 @@ train_data, test_data = preprocessing.cifar_10_preprocess(train_data, test_data)
 gpu = torch.cuda.is_available()
 net = net.cuda() if gpu else net
 
-train_data = Variable(train_data)
+train_data = Variable(torch.Tensor(train_data))
 
 output = net(train_data)
 predictions = torch.max(output, 1)[1]
