@@ -3,8 +3,8 @@ import argparse
 import numpy as np
 from torch.autograd.variable import Variable
 
-from hw2 import all_cnn
-from hw2 import preprocessing
+from utils import all_cnn
+from utils import preprocessing
 
 # parse arguments
 parser = argparse.ArgumentParser()

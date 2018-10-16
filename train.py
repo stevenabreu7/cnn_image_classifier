@@ -5,10 +5,8 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader, RandomSampler
 from torch.autograd.variable import Variable
 
-from hw2 import preprocessing
-from hw2 import all_cnn
-
-# TODO: implement scheduler
+from utils import preprocessing
+from utils import all_cnn
 
 class CustomDataset(Dataset):
     def __init__(self, data, labels):
