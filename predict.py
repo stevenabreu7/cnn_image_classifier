@@ -22,22 +22,22 @@ test_data = load('dataset/test_feats.npy')
 
 # preprocessing
 train_data, test_data = preprocessing.cifar_10_preprocess(train_data, test_data)
-train_data = torch.Tensor(train_data)
+test_data = torch.Tensor(test_data)
 
 # check if gpu is available
 gpu = torch.cuda.is_available()
 net = net.cuda() if gpu else net
-train_data = train_data.cuda() if gpu else train_data
+test_data = test_data.cuda() if gpu else test_data
 
 # get predictions
 predictions = []
-print(train_data)
-print(len(train_data))
-print(train_data.size())
-print(train_data.shape)
-for i in range(len(train_data)):
+print(test_data)
+print(len(test_data))
+print(test_data.size())
+print(test_data.shape)
+for i in range(len(test_data)):
     print('\r', i, sep='', end='')
-    output = net(train_data[i].unsqueeze(0))
+    output = net(test_data[i].unsqueeze(0))
     pred = torch.max(output, 1)[1]
     predictions.append(pred)
 
