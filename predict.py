@@ -31,6 +31,10 @@ train_data = train_data.cuda() if gpu else train_data
 
 # get predictions
 predictions = []
+print(train_data)
+print(len(train_data))
+print(train_data.size())
+print(train_data.shape)
 for i in range(len(train_data)):
     print('\r', i, sep='', end='')
     output = net(train_data[i].unsqueeze(0))
