@@ -31,7 +31,7 @@ train_data = Variable(train_data)
 predictions = []
 
 for i in range(len(train_data)):
-    output = net(train_data[i])
+    output = net(train_data[i].unsqueeze(0))
     pred = torch.max(output, 1)[1]
     predictions.append(pred)
 
