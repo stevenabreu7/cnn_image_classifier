@@ -13,6 +13,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 net = torch.load(args.filename)
+net = net.cpu()
 
 load = lambda x: np.load(x, encoding='bytes')
 train_data = load('dataset/train_feats.npy')
