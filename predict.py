@@ -31,12 +31,9 @@ test_data = test_data.cuda() if gpu else test_data
 
 # get predictions
 predictions = []
-print(test_data)
-print(len(test_data))
-print(test_data.size())
-print(test_data.shape)
 for i in range(len(test_data)):
-    print('\r', i, sep='', end='')
+    if i % 100 == 0:
+        print('\r', i, sep='', end='')
     output = net(test_data[i].unsqueeze(0))
     pred = torch.max(output, 1)[1]
     predictions.append(pred)
