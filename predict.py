@@ -28,8 +28,15 @@ train_data = torch.Tensor(train_data)
 train_data = train_data.cuda() if gpu else train_data
 train_data = Variable(train_data)
 
-output = net(train_data)
-predictions = torch.max(output, 1)[1]
+predictions = []
+
+for i in range(len(train_data)):
+    output = net(train_data[i])
+    pred = torch.max(output, 1)[1]
+    predictions.append(pred)
+
+# output = net(train_data)
+# predictions = torch.max(output, 1)[1]
 
 output_file='predictions.txt'
 with open(output_file, 'w') as f:
